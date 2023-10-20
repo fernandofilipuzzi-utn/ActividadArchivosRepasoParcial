@@ -47,17 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Curso.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormPrincipal.Designer.cs">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Alumno.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormPrincipal.resx">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -68,6 +68,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="archivos\importar_parcial1.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -82,7 +83,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="archivos\importar_parcial1.txt" />
+    <None Include="archivos\exportados_aprobados.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

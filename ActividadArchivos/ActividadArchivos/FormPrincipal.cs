@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace ActividadArchivos
 {
-    public partial class Form1 : Form
+    public partial class FormPrincipal : Form
     {
         Curso curso;
-        public Form1()
+        public FormPrincipal()
         {
             InitializeComponent();
         }
@@ -43,7 +43,7 @@ namespace ActividadArchivos
 
             if (curso == null)
             {
-                curso = new Curso() { Nombre = "Matemática" };
+                curso = new Curso( "Matemática");
                 curso.AgregarAlumno(24324232, "juan domingo");
                 curso.AgregarAlumno(58233232, "fortunato perez");
             }
@@ -73,6 +73,10 @@ namespace ActividadArchivos
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Title= "Importando notas de parciales";
+            openFileDialog1.Filter = "Notas de parciales|*.csv";
+
+            openFileDialog1.InitialDirectory = Path.Combine(Application.StartupPath,"..","..","archivos");
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string rutaCsv = openFileDialog1.FileName;
@@ -83,7 +87,7 @@ namespace ActividadArchivos
                     fs = new FileStream(rutaCsv, FileMode.Open, FileAccess.Read);
                     sr = new StreamReader(fs);
 
-                    //descartar cabecera
+                    //leer una vez con eso descarto la cabecera
                     string linea = sr.ReadLine();
 
                     while (sr.EndOfStream == false)
@@ -103,6 +107,7 @@ namespace ActividadArchivos
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                 }
                 finally
                 {
@@ -126,6 +131,10 @@ namespace ActividadArchivos
 
         private void btnExportar_Click(object sender, EventArgs e)
         {
+            saveFileDialog1.Title = "Exportando listado alumnos aprobados";
+            saveFileDialog1.Filter = "Fichero notas aprobados|*.csv";
+            saveFileDialog1.InitialDirectory = Path.Combine(Application.StartupPath, "..", "..", "archivos");
+
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string rutaCsv = saveFileDialog1.FileName;
@@ -133,7 +142,7 @@ namespace ActividadArchivos
                 StreamWriter sw = null;
                 try
                 {
-                    fs = new FileStream(rutaCsv, FileMode.OpenOrCreate, FileAccess.Write);
+                    fs = new FileStream(rutaCsv, FileMode.Create, FileAccess.Write);
                     sw = new StreamWriter(fs);
 
                     //descartar cabecera
@@ -145,12 +154,12 @@ namespace ActividadArchivos
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show(ex.Message);
                 }
                 finally
                 {
                     if (fs != null)
                     {
-
                         if (sw != null) sw.Close();
                         fs.Close();
                     }

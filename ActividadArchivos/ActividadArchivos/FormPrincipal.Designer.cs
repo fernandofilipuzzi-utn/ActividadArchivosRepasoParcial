@@ -1,7 +1,7 @@
 ﻿
 namespace ActividadArchivos
 {
-    partial class Form1
+    partial class FormPrincipal
     {
         /// <summary>
         /// Variable del diseñador necesaria.

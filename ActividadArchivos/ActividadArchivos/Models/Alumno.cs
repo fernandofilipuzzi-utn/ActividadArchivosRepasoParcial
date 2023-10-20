@@ -34,6 +34,18 @@ namespace ActividadArchivos.Models
                 return promedio;
             }
         }
+
+        public Alumno(int dni)
+        {
+            Dni = dni;
+        }
+
+        public Alumno(int dni, string nombre)
+        {
+            Dni = dni;
+            Nombre = nombre;
+        }
+
         public int CompareTo(object obj)
         {
             Alumno al = obj as Alumno;

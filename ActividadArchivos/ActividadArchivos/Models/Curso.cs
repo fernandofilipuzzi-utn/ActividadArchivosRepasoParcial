@@ -13,19 +13,25 @@ namespace ActividadArchivos.Models
         List<Alumno> alumnos = new List<Alumno>();
         public int CantidadAlumno { get { return alumnos.Count; } }
 
+        public Curso(string nombre)
+        {
+            Nombre = nombre;
+        }
+
         public void Importar(int dni, string nombre, double nota)
         {
 
             Alumno al = VerAlumno(dni);
             if (al != null)
             {
+                //actualizo
                 al.AcumNotas = nota;
             }
             else
             {
-                al = new Alumno { Dni = dni, Nombre = nombre, AcumNotas = nota };
-                alumnos.Add(al);
-                OrdenarAlumnos();
+                //sino agrego
+                Alumno nuevo=AgregarAlumno(dni,nombre);
+                nuevo.AcumNotas = nota;
             }
         }
 
@@ -44,16 +50,19 @@ namespace ActividadArchivos.Models
 
         public Alumno VerAlumno(int dni)
         {
-            //alumnos.Sort();
-            int idx=alumnos.BinarySearch(new Alumno { Dni = dni });
-            if (idx > 0)
-                return alumnos[idx];
-            return null;
+            Alumno buscado = null;
+            int idx=alumnos.BinarySearch(new Alumno( dni));
+            if (idx >= 0)
+                buscado= alumnos[idx];
+            return buscado;
         }
 
         public Alumno VerAlumnoIdx(int n)
         {
-            return alumnos[n];
+            Alumno buscado = null;
+            if(n>=0 && n<CantidadAlumno)
+                buscado =alumnos[n];
+            return buscado;
         }
 
         public void OrdenarAlumnos()
@@ -61,18 +70,26 @@ namespace ActividadArchivos.Models
             alumnos.Sort();
         }
 
-        public void AgregarAlumno(int dni, string nombre)
+        public Alumno AgregarAlumno(int dni, string nombre)
         {
-            Alumno nuevo = new Alumno() { Dni = dni, Nombre = nombre };
+            Alumno nuevo = new Alumno( dni,  nombre);
             int idx = alumnos.BinarySearch(nuevo);
 
             if (idx < 0)
             {
-                alumnos.Add(nuevo);
-                OrdenarAlumnos();
+                //este me exige ordenar cada vez que agrego
+                //alumnos.Add(nuevo);
+                //OrdenarAlumnos();
+
+                //este inserta de forma ordenada
+                //vean que devuelve el binarysearch en la doc oficial
+                //https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.binarysearch?view=net-7.0
+                alumnos.Insert(~idx, nuevo);
             }
             else
                 throw new Exception($"el alumno existe: {dni}");
+
+            return nuevo;
         }
     }
 }
