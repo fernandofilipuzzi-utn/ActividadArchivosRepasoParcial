@@ -1,0 +1,5 @@
+﻿dni;nombre ;nota
+14324232; juan domingo; 23,0
+28233232; fortunato perez; 53
+33232333; melinda gutierrez; 80,4
+43232323; clorinda mesa; 80,4
